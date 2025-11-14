@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palabras Clave Esenciales de SQL</title>
+    <title>Sintaxis Básica de SQL: Completa</title>
     <style>
         /* === ESTILOS GLOBALES Y DE ESCRITORIO === */
         body {
@@ -44,6 +44,7 @@
         .single-content pre { font-size: 1.2em; display: inline-block; text-align: left; max-width: 100%; }
         pre { background-color: #2d3636; color: #fff; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; }
         .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
+        .task-list { text-align: left; display: inline-block; font-size: 1.2em; color: #333; }
 
         /* === MEDIA QUERIES === */
         @media screen and (max-width: 768px) {
@@ -58,6 +59,7 @@
             .single-content p { font-size: 1.1em; }
             .single-content pre { font-size: 1em; }
             .footer { font-size: 0.8em; right: 25px; }
+            .task-list { font-size: 1em; }
         }
     </style>
 </head>
@@ -66,249 +68,247 @@
     <div class="slideshow-container">
         
         <!-- =============================================================== -->
-        <!-- INICIO DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- INTRODUCCIÓN -->
         <!-- =============================================================== -->
 
         <div class="slide fade">
             <h1>Cheat Sheet de SQL</h1>
-            <h2 style="color:#333; border:none;">Keywords</h2>
-            <div class="footer">1 / 22</div>
+            <h2 style="color:#333; border:none;">Basic Syntax</h2>
+            <div class="footer">1 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Los 3 Pilares de la Sintaxis</h2>
+            <div class="single-content">
+                <p>Para escribir cualquier consulta en SQL, necesitas dominar:</p>
+                <p style="font-size: 1.2em;">
+                    1. <b>Keywords (Palabras Clave):</b> Las acciones.<br>
+                    2. <b>Data Types (Tipos de Datos):</b> La naturaleza de la información.<br>
+                    3. <b>Operators (Operadores):</b> Las comparaciones.
+                </p>
+            </div>
+            <div class="footer">2 / 19</div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- PARTE 1: KEYWORDS -->
+        <!-- =============================================================== -->
+
+        <div class="slide fade">
+            <h2 style="border-bottom: 3px solid #005A9C; padding-bottom: 10px;">Parte 1: Keywords</h2>
+            <div class="single-content">
+                <p>Las palabras clave son comandos reservados que le indican a la base de datos la operación a ejecutar.</p>
+            </div>
+            <div class="footer">3 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Keywords de Consulta (DQL)</h2>
+            <div class="single-content">
+                <p>Las más usadas. Definen qué datos leer y cómo presentarlos.</p>
+                <pre><code>SELECT Columnas  -- Qué quieres ver
+FROM Tabla       -- De dónde
+WHERE Condición   -- Cómo filtrar
+ORDER BY Columna -- Cómo ordenar</code></pre>
+            </div>
+            <div class="footer">4 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Keywords de Manipulación (DML)</h2>
+            <div class="single-content">
+                <p>Usadas para crear, modificar o eliminar los registros de las tablas.</p>
+                <pre><code>INSERT INTO Tabla ... VALUES ...;
+UPDATE Tabla SET ... WHERE ...;
+DELETE FROM Tabla WHERE ...;</code></pre>
+            </div>
+            <div class="footer">5 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Keywords de Definición (DDL)</h2>
+            <div class="single-content">
+                <p>Definen la estructura de la base de datos: las tablas y sus columnas.</p>
+                <pre><code>CREATE TABLE Nombre (...);
+ALTER TABLE Nombre ...;
+DROP TABLE Nombre;</code></pre>
+            </div>
+            <div class="footer">6 / 19</div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- PARTE 2: DATA TYPES (EXPANDIDO) -->
+        <!-- =============================================================== -->
+
+        <div class="slide fade">
+            <h2 style="border-bottom: 3px solid #005A9C; padding-bottom: 10px;">Parte 2: Tipos de Datos</h2>
+            <div class="single-content">
+                <p>Definir correctamente el tipo de dato ahorra espacio y evita errores. Vamos a verlos en detalle.</p>
+            </div>
+            <div class="footer">7 / 19</div>
         </div>
 
         <div class="slide fade">
-            <h2>¿Qué es una "Keyword"?</h2>
+            <h2>Números Enteros</h2>
             <div class="single-content">
-                <p>Son palabras reservadas que SQL entiende como órdenes o instrucciones. Le dicen a la base de datos QUÉ hacer (SELECT, UPDATE) y DÓNDE hacerlo (FROM, WHERE).</p>
+                <p>Se usan para contar cosas (stock, edad, IDs). No tienen decimales.</p>
+                <pre><code>-- INT (o INTEGER): El estándar (aprox. +/- 2 mil millones).
+-- SMALLINT: Para números pequeños (ahorra espacio).
+-- BIGINT: Para cifras astronómicas o IDs muy grandes.
+
+Edad INT, Cantidad SMALLINT</code></pre>
             </div>
-            <div class="footer">2 / 22</div>
+            <div class="footer">8 / 19</div>
         </div>
 
         <div class="slide fade">
-            <h2>DML: Manipulación de Datos</h2>
+            <h2>Números Decimales</h2>
             <div class="single-content">
-                <p>El grupo de comandos más común, usado para interactuar con los datos existentes. Son las operaciones del día a día.</p>
-                <p style="font-size: 1.2em; color: #005A9C;"><b>SELECT, INSERT, UPDATE, DELETE</b></p>
+                <p>Cruciales para precios, pesos o medidas científicas.</p>
+                <pre><code>-- DECIMAL(p, s): Exacto. Ideal para DINERO. 
+   -- p: total de dígitos, s: decimales.
+-- FLOAT / REAL: Aproximado. Para cálculos científicos.
+   -- ¡Cuidado! Puede tener pequeños errores de redondeo.
+
+Precio DECIMAL(10, 2) -- Ejemplo: 12345678.99</code></pre>
             </div>
-            <div class="footer">3 / 22</div>
+            <div class="footer">9 / 19</div>
         </div>
 
         <div class="slide fade">
-            <h2>SELECT y FROM</h2>
+            <h2>Texto Corto (Strings)</h2>
             <div class="single-content">
-                <p><b>SELECT</b> especifica las columnas que quieres ver y <b>FROM</b> la tabla de donde las obtendrás. Es la base de toda consulta.</p>
-                <pre><code>-- Selecciona el nombre y email de todos los usuarios
-SELECT Nombre, Email FROM Usuarios;</code></pre>
+                <p>Para nombres, códigos, emails, etc.</p>
+                <pre><code>-- VARCHAR(n): Longitud Variable. El más común.
+   -- Si guardas "Ana" en VARCHAR(100), solo ocupa 3 letras.
+-- CHAR(n): Longitud Fija. 
+   -- Si guardas "Ana" en CHAR(10), rellena con espacios.
+   -- Útil para códigos fijos como 'ES', 'MX', 'US'.
+
+Nombre VARCHAR(100), CodigoPais CHAR(2)</code></pre>
             </div>
-            <div class="footer">4 / 22</div>
+            <div class="footer">10 / 19</div>
         </div>
 
         <div class="slide fade">
-            <h2>WHERE: Filtrado de Datos</h2>
+            <h2>Texto Largo</h2>
             <div class="single-content">
-                <p>Permite establecer condiciones para filtrar los registros y obtener solo los que cumplen ciertos criterios.</p>
-                <pre><code>-- Selecciona los productos que cuestan más de 50
-SELECT * FROM Productos WHERE Precio > 50;</code></pre>
+                <p>Cuando `VARCHAR` se queda corto (más de 255 o 4000 caracteres, según la DB).</p>
+                <pre><code>-- TEXT: Para párrafos largos, descripciones, comentarios.
+-- LONGTEXT / CLOB: Para libros enteros o logs gigantes.
+
+Descripcion TEXT, ContenidoBlog LONGTEXT</code></pre>
             </div>
-            <div class="footer">5 / 22</div>
+            <div class="footer">11 / 19</div>
         </div>
 
+        <div class="slide fade">
+            <h2>Fechas y Tiempo</h2>
+            <div class="single-content">
+                <p>SQL es muy potente manejando fechas. Usa el formato 'YYYY-MM-DD'.</p>
+                <pre><code>-- DATE: Solo fecha (2023-12-31).
+-- TIME: Solo hora (23:59:59).
+-- DATETIME: Ambos (2023-12-31 23:59:59).
+-- TIMESTAMP: Similar a DateTime, pero a veces incluye zona horaria.
+
+FechaNacimiento DATE, UltimoAcceso DATETIME</code></pre>
+            </div>
+            <div class="footer">12 / 19</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Otros Tipos Comunes</h2>
+            <div class="single-content">
+                <p>Tipos especializados para necesidades concretas.</p>
+                <pre><code>-- BOOLEAN: Verdadero o Falso (TRUE/FALSE).
+-- BLOB (Binary Large Object): Para guardar imágenes o archivos
+   -- directamente en la base de datos (binario).
+-- JSON: Bases de datos modernas permiten guardar objetos JSON.
+
+EsActivo BOOLEAN, FotoPerfil BLOB</code></pre>
+            </div>
+            <div class="footer">13 / 19</div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- PARTE 3: OPERATORS -->
+        <!-- =============================================================== -->
+
+        <div class="slide fade">
+            <h2 style="border-bottom: 3px solid #005A9C; padding-bottom: 10px;">Parte 3: Operators</h2>
+            <div class="single-content">
+                <p>Los operadores son símbolos especiales que se usan para realizar comparaciones, cálculos aritméticos y operaciones lógicas.</p>
+            </div>
+            <div class="footer">14 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Operadores Aritméticos</h2>
+            <div class="single-content">
+                <p>Realizan cálculos matemáticos básicos.</p>
+                <pre><code>+ (Suma), - (Resta), * (Multiplicación), / (División)
+
+-- Calcular el precio con IVA (ej. 21%)
+SELECT Nombre, Precio * 1.21 AS PrecioFinal FROM Productos;</code></pre>
+            </div>
+            <div class="footer">15 / 19</div>
+        </div>
+        <div class="slide fade">
+            <h2>Operadores de Comparación</h2>
+            <div class="single-content">
+                <p>Comparan dos valores y devuelven verdadero o falso.</p>
+                <pre><code>= (Igual a), <> (Diferente)
+> (Mayor), < (Menor)
+>= (Mayor o igual), <= (Menor o igual)
+
+-- Empleados con salario mayor o igual a 50000
+SELECT * FROM Empleados WHERE Salario >= 50000;</code></pre>
+            </div>
+            <div class="footer">16 / 19</div>
+        </div>
         <div class="slide fade">
             <h2>Operadores Lógicos</h2>
             <div class="single-content">
-                <p>Se usan con <b>WHERE</b> para combinar múltiples condiciones: <b>AND</b> (ambas deben ser ciertas), <b>OR</b> (al menos una debe ser cierta).</p>
-                <pre><code>-- Productos caros Y de la categoría 'Electrónica'
-SELECT * FROM Productos 
-WHERE Precio > 1000 AND Categoria = 'Electrónica';</code></pre>
-            </div>
-            <div class="footer">6 / 22</div>
-        </div>
+                <p>Se usan para combinar múltiples condiciones.</p>
+                <pre><code>AND -- Todas las condiciones deben cumplirse.
+OR  -- Al menos una condición debe cumplirse.
+NOT -- Invierte el resultado.
 
-        <div class="slide fade">
-            <h2>Otros Operadores de Filtrado</h2>
-            <div class="single-content">
-                <p><b>IN</b> (está en una lista), <b>BETWEEN</b> (está en un rango), <b>LIKE</b> (coincide con un patrón de texto).</p>
-                <pre><code>-- Pedidos realizados en Enero o Febrero
-SELECT * FROM Pedidos 
-WHERE MONTH(Fecha) IN (1, 2);</code></pre>
+-- Clientes de España O con más de 5 compras
+SELECT * FROM Clientes
+WHERE Pais = 'España' OR NumeroCompras > 5;</code></pre>
             </div>
-            <div class="footer">7 / 22</div>
+            <div class="footer">17 / 19</div>
         </div>
-        
         <div class="slide fade">
-            <h2>ORDER BY: Ordenar Resultados</h2>
+            <h2>Operadores Especiales</h2>
             <div class="single-content">
-                <p>Clasifica los resultados de una consulta en orden ascendente (<b>ASC</b>, por defecto) o descendente (<b>DESC</b>).</p>
-                <pre><code>-- Empleados ordenados por salario, de mayor a menor
-SELECT Nombre, Salario FROM Empleados
-ORDER BY Salario DESC;</code></pre>
-            </div>
-            <div class="footer">8 / 22</div>
-        </div>
+                <p>Proporcionan formas más potentes de filtrar.</p>
+                <pre><code>IN (list) -- Valor en una lista.
+BETWEEN x AND y -- Valor en un rango.
+LIKE 'patron' -- Coincidencia de texto (% = comodín).
+IS NULL -- El valor está vacío.
 
-        <div class="slide fade">
-            <h2>INSERT INTO: Añadir Registros</h2>
-            <div class="single-content">
-                <p>Agrega una nueva fila (o registro) a una tabla existente.</p>
-                <pre><code>-- Agrega un nuevo departamento
-INSERT INTO Departamentos (ID, Nombre)
-VALUES (5, 'Marketing');</code></pre>
+SELECT * FROM Productos WHERE Categoria IN ('Libros', 'Música');</code></pre>
             </div>
-            <div class="footer">9 / 22</div>
+            <div class="footer">18 / 19</div>
         </div>
-
         <div class="slide fade">
-            <h2>UPDATE y SET: Modificar</h2>
+            <h2>Poniéndolo Todo Junto</h2>
             <div class="single-content">
-                <p><b>UPDATE</b> especifica la tabla y <b>SET</b> las columnas a cambiar. Se usa con <b>WHERE</b> para no modificar toda la tabla.</p>
-                <pre><code>-- Actualiza el stock del producto con ID 123
-UPDATE Productos
-SET Stock = 50
-WHERE ProductoID = 123;</code></pre>
+                <p>Una consulta real combina todos estos elementos.</p>
+                <pre><code style="font-size: 0.9em;">-- Keyword + Columna + Tabla + Keyword + Comparación + Lógico
+SELECT Nombre, Salario 
+FROM Empleados
+WHERE Departamento = 'Ventas' 
+  AND Salario BETWEEN 40000 AND 60000;</code></pre>
             </div>
-            <div class="footer">10 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>DELETE: Eliminar Registros</h2>
-            <div class="single-content">
-                <p>Borra filas de una tabla. ¡Es crucial usar <b>WHERE</b> para especificar qué filas eliminar!</p>
-                <pre><code>-- Elimina las órdenes canceladas
-DELETE FROM Pedidos
-WHERE Estado = 'Cancelado';</code></pre>
-            </div>
-            <div class="footer">11 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>DDL: Definición de Datos</h2>
-            <div class="single-content">
-                <p>Este grupo de comandos no trabaja con los datos, sino con la estructura de la base de datos: las tablas, columnas, etc.</p>
-                <p style="font-size: 1.2em; color: #005A9C;"><b>CREATE, ALTER, DROP</b></p>
-            </div>
-            <div class="footer">12 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>CREATE TABLE: Crear Estructuras</h2>
-            <div class="single-content">
-                <p>Define y crea una nueva tabla, especificando sus columnas y los tipos de datos que almacenarán (texto, número, fecha, etc.).</p>
-                <pre><code>CREATE TABLE Clientes (
-    ClienteID INT PRIMARY KEY,
-    Nombre VARCHAR(100),
-    FechaRegistro DATE
-);</code></pre>
-            </div>
-            <div class="footer">13 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>ALTER TABLE: Modificar Tablas</h2>
-            <div class="single-content">
-                <p>Permite modificar una tabla existente, por ejemplo, para añadir, eliminar o cambiar una columna.</p>
-                <pre><code>-- Añade una columna para el teléfono del cliente
-ALTER TABLE Clientes
-ADD Telefono VARCHAR(20);</code></pre>
-            </div>
-            <div class="footer">14 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>DROP TABLE: Eliminar Tablas</h2>
-            <div class="single-content">
-                <p>Elimina una tabla completa, incluyendo su estructura y todos sus datos. Es una acción irreversible.</p>
-                <pre><code>-- Elimina una tabla que ya no se necesita
-DROP TABLE Empleados_Antiguos;</code></pre>
-            </div>
-            <div class="footer">15 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>Funciones de Agregación</h2>
-            <div class="single-content">
-                <p>Realizan un cálculo sobre un conjunto de valores y devuelven un único valor. Ej: <b>COUNT</b>, <b>SUM</b>, <b>AVG</b>, <b>MAX</b>, <b>MIN</b>.</p>
-                <pre><code>-- Calcula el precio promedio de todos los productos
-SELECT AVG(Precio) FROM Productos;</code></pre>
-            </div>
-            <div class="footer">16 / 22</div>
-        </div>
-        
-        <div class="slide fade">
-            <h2>GROUP BY: Agrupar Datos</h2>
-            <div class="single-content">
-                <p>Agrupa filas que tienen los mismos valores en columnas específicas, para poder ejecutar funciones de agregación en cada grupo.</p>
-                <pre><code>-- Cuenta cuántos productos hay en cada categoría
-SELECT Categoria, COUNT(*) FROM Productos
-GROUP BY Categoria;</code></pre>
-            </div>
-            <div class="footer">17 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>HAVING: Filtrar Grupos</h2>
-            <div class="single-content">
-                <p>Es como un <b>WHERE</b>, pero para los resultados de un <b>GROUP BY</b>. Filtra grupos, no filas individuales.</p>
-                <pre><code>-- Muestra categorías con más de 10 productos
-SELECT Categoria, COUNT(*) FROM Productos
-GROUP BY Categoria
-HAVING COUNT(*) > 10;</code></pre>
-            </div>
-            <div class="footer">18 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>JOIN: Unir Tablas</h2>
-            <div class="single-content">
-                <p>Permite combinar filas de dos o más tablas basándose en una columna relacionada entre ellas (como un ID).</p>
-                <pre><code>-- Une Clientes con Pedidos para ver quién pidió qué
-SELECT Clientes.Nombre, Pedidos.Producto
-FROM Clientes
-JOIN Pedidos ON Clientes.ClienteID = Pedidos.ClienteID;</code></pre>
-            </div>
-            <div class="footer">19 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>Tipos de JOIN</h2>
-            <div class="single-content">
-                <p><b>INNER JOIN</b>: Solo filas que coinciden en ambas tablas. <br><b>LEFT JOIN</b>: Todas las filas de la tabla izquierda y las coincidencias de la derecha.<br><b>RIGHT JOIN</b>: Lo opuesto a LEFT JOIN.</p>
-                <pre><code>-- Muestra todos los clientes, tengan o no pedidos
-SELECT C.Nombre, P.Producto
-FROM Clientes AS C
-LEFT JOIN Pedidos AS P ON C.ClienteID = P.ClienteID;</code></pre>
-            </div>
-            <div class="footer">20 / 22</div>
-        </div>
-
-        <div class="slide fade">
-            <h2>AS: Alias</h2>
-            <div class="single-content">
-                <p>Permite renombrar temporalmente una columna o una tabla en una consulta para hacerla más corta o legible.</p>
-                <pre><code>-- Renombra la columna y la tabla para más claridad
-SELECT Nombre AS NombreCompleto
-FROM Empleados AS E;</code></pre>
-            </div>
-            <div class="footer">21 / 22</div>
-        </div>
-        
-        <div class="slide fade">
-            <h2>¡Felicidades!</h2>
-            <div class="single-content">
-                <p>Has recorrido las palabras clave más importantes de SQL. Desde consultar y modificar datos hasta definir la propia estructura de la base de datos.</p>
-                <p>¡Dominar estos comandos es la clave para ser un experto en SQL!</p>
-            </div>
-            <div class="footer">22 / 22</div>
+            <div class="footer">19 / 19</div>
         </div>
 
         <!-- =============================================================== -->
-        <!-- FIN DEL CONTENIDO DE LAS DIAPOSITIVAS -->
+        <!-- FIN DEL CONTENIDO -->
         <!-- =============================================================== -->
 
-        <!-- Botones de navegación (No es necesario editar) -->
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 
-    <!-- Lógica de JavaScript (No es necesario editar) -->
     <script>
         let slideIndex = 1;
         showSlides(slideIndex);
